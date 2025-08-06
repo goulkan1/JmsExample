@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  activemq:
+    image: rmohr/activemq
+    container_name: activemq-server
+    ports:
+      - "61616:61616"    # OpenWire JMS protocol
+      - "8161:8161"      # Web Console
+      - "5672:5672"      # AMQP protocol
+      - "61613:61613"    # STOMP protocol
+      - "1883:1883"      # MQTT protocol
+      - "61614:61614"    # WebSocket protocol
+    volumes:
+      - ./data:/root/activemq/data          # Persist data
+      - ./conf:/root/activemq/conf          # Custom configuration
+    environment:
+      ACTIVEMQ_USER: admin                 # Username for the web console
+      ACTIVEMQ_PASSWORD: admin             # Password for the web console
+      ACTIVEMQ_MIN_MEMORY: 1024             # Optional: JVM memory settings
+      ACTIVEMQ_MAX_MEMORY: 2048
+
